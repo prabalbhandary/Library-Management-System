@@ -34,7 +34,8 @@ const Register = () => {
       toast.error(error);
       dispatch(resetAuthSlice());
     }
-  }, [dispatch, isAuthenticated, loading]);
+  }, [dispatch, message, error, email, navigate]);
+  
   return (
     <>
       <title>Register - BookWorm Library</title>
