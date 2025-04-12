@@ -21,7 +21,6 @@ import { removeUnverifiedAccount } from "./src/services/removeUnverifiedAccount.
 const app = express();
 const port = process.env.PORT || 5000;
 
-
 const corsOptions = {
   origin: [process.env.FRONTEND_URL],
   credentials: true,
