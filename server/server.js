@@ -58,7 +58,7 @@ app.listen(port, () => {
   connectDB();
   notifyUsers();
   removeUnverifiedAccount();
-  console.log(`Server is running on ${port}`.bgMagenta.white);
+  console.log(`Server is running on http://localhost:${port}`.bgMagenta.white);
 });
 
 app.use(errorMiddleware);
