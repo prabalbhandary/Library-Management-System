@@ -8,6 +8,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import { v2 as cloudinary } from "cloudinary";
 import fileUpload from "express-fileupload";
+import path from "path";
 
 import connectDB from "./src/config/db.js";
 import authRoutes from "./src/routes/authRoute.js";
@@ -20,6 +21,8 @@ import { removeUnverifiedAccount } from "./src/services/removeUnverifiedAccount.
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+const __dirname = path.resolve();
 
 const corsOptions = {
   origin: [process.env.FRONTEND_URL],
@@ -55,6 +58,11 @@ cloudinary.config({
 });
 
 app.use(errorMiddleware);
+
+app.use(express.static("client/build"));
+app.get("/", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
 
 app.listen(port, () => {
   connectDB();
