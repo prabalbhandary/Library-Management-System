@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toggleAddBookPopup } from "./popUpSlice";
 import { toast } from "react-toastify";
+import { URL } from "../../components/URL";
 
 const bookSlice = createSlice({
   name: "book",
@@ -41,7 +42,7 @@ const bookSlice = createSlice({
 export const fetchAllBooks = () => async (dispatch) => {
   dispatch(bookSlice.actions.fetchBooksRequest());
   await axios
-    .get("http://localhost:5000/api/v1/book/all", { withCredentials: true })
+    .get(`${URL}/api/v1/book/all`, { withCredentials: true })
     .then((res) => {
       dispatch(bookSlice.actions.fetchBooksSuccess(res.data.books));
     })
@@ -53,7 +54,7 @@ export const fetchAllBooks = () => async (dispatch) => {
 export const addBook = (data) => async (dispatch) => {
   dispatch(bookSlice.actions.addBookRequest());
   axios
-    .post("http://localhost:5000/api/v1/book/admin/add", data, {
+    .post(`${URL}/api/v1/book/admin/add`, data, {
       withCredentials: true,
       headers: { "Content-Type": "application/json" },
     })
