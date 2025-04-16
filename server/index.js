@@ -8,9 +8,6 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import { v2 as cloudinary } from "cloudinary";
 import fileUpload from "express-fileupload";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-import path from "path";
 
 import connectDB from "./src/config/db.js";
 import authRoutes from "./src/routes/authRoute.js";
@@ -30,9 +27,6 @@ const corsOptions = {
   methods: ["GET", "POST", "PUT", "DELETE"],
 };
 
-app.get("/test", (req, res) => {
-  res.send("Test route working");
-});
 
 app.use(cors(corsOptions));
 app.use(morgan("dev"));
@@ -53,16 +47,6 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/book", bookRoutes);
 app.use("/api/v1/borrow", borrowRoutes);
 app.use("/api/v1/user", userRoutes);
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "./client/dist")));
-  app.get("/*", function (req, res) {
-    res.sendFile(path.join(__dirname, "./client/dist/index.html"));
-  });
-}
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
